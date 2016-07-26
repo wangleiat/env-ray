@@ -1,0 +1,22 @@
+#!/bin/bash
+# User specific aliases and functions
+
+# umask
+umask 022
+
+# variable
+export EDITOR=vim
+
+# xon/xoff
+#[ -t 0 ] && stty -ixon
+
+alias cp='cp -i'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias mv='mv -i'
+alias rm='rm -i'
+alias vi='vim'
+
+export PS1='[\u@\h \W]\$ '
+export TZ='Asia/Shanghai'

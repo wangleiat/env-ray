@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/root/test'
+let g:netrw_dirhist_2='/mnt/root/rpmbuild/BUILD/OOO320_m19/solenv/inc'
+let g:netrw_dirhist_3='/root/rpmbuild'

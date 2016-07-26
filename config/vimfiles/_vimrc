@@ -1,0 +1,423 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" This vimrc is based on the vimrc by Amix:
+"       http://amix.dk/vim/vimrc.html
+"
+" Maintainer:  Ray Wang
+" Last Change: Fri Jul 11 CST 2013
+" Version:     0.1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Get out of VI's compatible mode..
+set nocompatible
+
+" Platform
+function! MySys()
+if has("win32")
+    return "windows"
+else
+    return "linux"
+endif
+endfunction
+
+"Syntax highlighting enables
+syntax enable
+syntax on
+
+"Sets how many lines of history VIM har to remember
+set history=400
+
+" Chinese
+" multi-encoding setting
+if has("multi_byte")
+    "set bomb
+    set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,sjis,euc-kr,ucs-2le,latin1
+    " CJK environment detection and corresponding setting
+    if v:lang =~ "^zh_CN"
+        " Use cp936 to support GBK, euc-cn == gb2312
+        set encoding=chinese
+        set termencoding=chinese
+        set fileencoding=chinese
+    elseif v:lang =~ "^zh_TW"
+        " cp950, big5 or euc-tw
+        " Are they equal to each other?
+        set encoding=taiwan
+        set termencoding=taiwan
+        set fileencoding=taiwan
+    endif
+    " Detect UTF-8 locale, and replace CJK setting if needed
+    if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+        set encoding=utf-8
+        set termencoding=utf-8
+        set fileencoding=utf-8
+    endif
+endif
+
+"Enable filetype plugin
+filetype plugin indent on
+"new-omni-completion
+set completeopt=longest,menu
+
+"Set to auto read when a file is changed from the outside
+set autoread
+
+"Have the mouse enabled all the time
+"set mouse=a
+
+"Vim set no Paste mode
+set nopaste
+
+"Restore cursor to file position in previous editing session
+set viminfo='10,\"100,:20,n~/.viminfo
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+"Set mapleader
+let mapleader = ","
+let g:mapleader = ","
+
+"Fast saving
+nmap <silent> <leader>ww :w<cr>
+nmap <silent> <leader>wf :w!<cr>
+
+"Fast quiting
+nmap <silent> <leader>qw :wq<cr>
+nmap <silent> <leader>qf :q!<cr>
+nmap <silent> <leader>qq :q<cr>
+nmap <silent> <leader>qa :qa<cr>
+
+"Set font
+if MySys() == "linux"
+    if has("gui_gtk2")
+        set gfn=Courier\ New\ 10,Courier\ 10,Luxi\ Mono\ 10,
+            \DejaVu\ Sans\ Mono\ 10,Bitstream\ Vera\ Sans\ Mono\ 10,
+            \SimSun\ 10,WenQuanYi\ Micro\ Hei\ Mono\ 10
+    elseif has("x11")
+        set gfn=*-*-medium-r-normal--10-*-*-*-*-m-*-*
+    endif
+endif
+
+" Avoid clearing hilight definition in plugins
+if !exists("g:vimrc_loaded")
+    "Enable syntax hl
+    syntax enable
+
+    " color scheme
+    if has("gui_running")
+        set guioptions-=T
+        set guioptions-=m
+        set guioptions-=L
+        set guioptions-=r
+        colorscheme darkblue_my
+        "hi normal guibg=#294d4a
+        set cursorline
+    else
+        colorscheme desert_my
+        "set cursorline
+    endif " has
+endif " exists(...)
+
+" Switch to buffer according to file name
+function! SwitchToBuf(filename)
+    let bufwinnr = bufwinnr(a:filename)
+    if bufwinnr != -1
+        exec bufwinnr . "wincmd w"
+        return
+    else
+        " find in each tab
+        tabfirst
+        let tab = 1
+        while tab <= tabpagenr("$")
+            let bufwinnr = bufwinnr(a:filename)
+            if bufwinnr != -1
+                exec "normal " . tab . "gt"
+                exec bufwinnr . "wincmd w"
+                return
+            endif
+            tabnext
+            let tab = tab + 1
+        endwhile
+        " not exist, new tab
+        exec "tabnew " . a:filename
+    endif
+endfunction
+
+if MySys() == 'linux'
+"Fast reloading of the .vimrc
+map <silent> <leader>ss :source ~/.vimrc<cr>
+"Fast editing of .vimrc
+map <silent> <leader>ee :call SwitchToBuf("~/.vimrc")<cr>
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fileformats
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Favorite filetypes
+set ffs=unix,dos
+
+nmap <leader>fd :se ff=dos<cr>
+nmap <leader>fu :se ff=unix<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM userinterface
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Set help language
+set helplang=en
+"set shortmess=atI
+
+"Set backspace
+"set backspace=2
+set backspace=eol,start,indent
+
+"Backspace and cursor keys wrap to
+"set whichwrap+=<,>,h,l
+set whichwrap+=<,>
+
+"Show line number
+"set nu
+
+"Turn on Wild menu
+set wildmenu
+
+"Always show current position
+set ruler
+
+"Always show the statusline
+set laststatus=2
+
+"The commandbar is 1 high
+set cmdheight=1
+
+"Include search
+set incsearch
+
+"Highlight search
+set hlsearch
+
+"Show matching bracets {  }
+set showmatch
+
+"No sound on errors.
+set noerrorbells
+set novb t_vb=
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Moving around windows and tabs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Smart way to move btw. windows
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
+
+"Tab configuration
+map <leader>tt :tabnew<cr>
+map <leader>tn :tabnext<cr>
+map <leader>te :tabedit
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session options
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set sessionoptions-=curdir
+set sessionoptions+=sesdir
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Files and backups
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Turn backup off
+set nobackup
+set nowritebackup
+"set noswapfile
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Text options
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Indent from current line
+"Auto indent
+set ai
+"Smart indet
+set si
+"C-style indeting
+set cindent
+"Wrap lines
+set wrap
+
+"Number of spaces that a <Tab> in the file counts for
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+"retab!
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Filetype options
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" make file
+""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType make set noexpandtab
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" cscope setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("cscope")
+    if MySys() == "linux"
+        set csprg=/usr/bin/cscope
+    else
+        set csprg=cscope
+    endif
+    set csto=1
+    set cst
+    set nocsverb
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
+"symbol
+nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+"define
+nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+"call
+nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+"called
+nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"text
+nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+"egrep
+nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+"file
+nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"include file
+nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Taglist setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+if MySys() == "windows"
+    let Tlist_Ctags_Cmd = 'ctags'
+elseif MySys() == "linux"
+    let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+endif
+let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 0
+let Tlist_WinWidth = 25
+nmap <silent> <leader>tl :Tlist<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quickfix setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+"next
+nmap <leader>cn :cn<cr>
+"prev
+nmap <leader>cp :cp<cr>
+"close
+nmap <leader>cc :ccl<cr>
+"window
+nmap <leader>cw :cw 20<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" netrw setting : file explore
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_winsize = 25
+"nmap <leader>fe :Sexplor!<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" OmniCppComplete
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let OmniCpp_MayCompleteDot = 1 " autocomplete with .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete with ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete with ::
+let OmniCpp_SelectFirstItem = 2 " select first item (but don't insert)
+let OmniCpp_NamespaceSearch = 2 " search namespaces in this and included files
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype in popup window
+let OmniCpp_GlobalScopeSearch = 1 " enable the global scope search
+let OmniCpp_DisplayMode = 1 " always show all members
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+let OmniCpp_ShowScopeInAbbr = 1 " show func args
+let OmniCpp_ShowAccess = 1 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" super tab
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:SuperTabPluginLoaded=1 " Avoid load SuperTab Plugin
+let g:SuperTabDefaultCompletionType='context'
+let g:SuperTabContextDefaultCompletionType='<c-p>'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree setting : file tree explore
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let NERDTreeWinPos = "right"
+let NERDTreeWinSize = 25
+nmap <leader>ft :NERDTreeToggle<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" lookupfile setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:LookupFile_MinPatLength = 2
+let g:LookupFile_PreserveLastPattern = 0
+let g:LookupFile_PreservePatternHistory = 0
+let g:LookupFile_AlwaysAcceptFirst = 1
+let g:LookupFile_AllowNewFiles = 0
+let g:LookupFile_UsingSpecializedTags = 1
+let g:LookupFile_Bufs_LikeBufCmd = 0
+let g:LookupFile_ignorecase = 1
+let g:LookupFile_smartcase = 1
+if filereadable("./filenametags")
+    let g:LookupFile_TagExpr = '"./filenametags"'
+endif
+nmap <silent> <leader>lk :LUTags<cr>
+nmap <silent> <leader>ll :LUBufs<cr>
+nmap <silent> <leader>lw :LUWalk<cr>
+
+" lookup file with ignore case
+function! LookupFile_IgnoreCaseFunc(pattern)
+    let _tags = &tags
+    try
+        let &tags = eval(g:LookupFile_TagExpr)
+        let newpattern = '\c' . a:pattern
+        let tags = taglist(newpattern)
+    catch
+        echohl ErrorMsg | echo "Exception: " . v:exception | echohl NONE
+        return ""
+    finally
+        let &tags = _tags
+    endtry
+
+    " Show the matches for what is typed so far.
+    let files = map(tags, 'v:val["filename"]')
+    return files
+endfunction
+let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Bufexplorer setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:bufExplorerDefaultHelp=1       " Do not show default help.
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+let g:bufExplorerSplitVertSize = 25  " Split width
+autocmd BufWinEnter \[Buf\ List\] setl nonumber
+nmap <leader>bf :BufExplorer<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" WinManager setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:winManagerWindowLayout = "FileExplorer|TagList"
+let g:winManagerWidth = 25
+let g:defaultExplorer = 0
+nmap <C-W><C-F> :FirstExplorerWindow<cr>
+nmap <C-W><C-B> :BottomExplorerWindow<cr>
+nmap <silent> <leader>wm :WMToggle<cr>

@@ -1,0 +1,6 @@
+identity = name@site.cn
+    hostname = mail.site.cn:25
+    username = "name"
+    password = "passwd"
+    default
+

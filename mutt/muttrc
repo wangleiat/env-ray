@@ -1,0 +1,101 @@
+# mail editor setting
+set editor = "vim"
+
+# send mail program setting
+set sendmail = "/usr/bin/esmtp -v -X $HOME/mail/log/esmtp.log"
+#set sendmail = "/usr/bin/esmtp"
+
+# mailbox dir setting
+set folder = "~/mail"
+#set mbox_type = Maildir
+set mbox = "~/mail/inbox"
+set spoolfile = "~/mail/inbox"
+set postponed = "~/mail/postponed"
+set record = "~/mail/sent"
+set move = no
+
+set check_new = yes
+set mail_check = 90
+set timeout = 300
+
+# charset
+set charset = "utf8"
+set send_charset = "us-ascii:iso-8859-1:gb2312:utf-8"
+set locale = "zh_CN.UTF-8"
+set rfc2047_parameters = yes #for attachment name
+#charset-hook ^us-ascii$ gbk
+#charset-hook ^iso-8859-1$ gbk
+#charset-hook !utf-8 gbk
+
+# mutt watch these mailboxes
+mailboxes `echo ~/mail/*`
+#mailboxes "=inbox"
+
+# address book
+set alias_file=~/mail/addrbook
+source ~/mail/addrbook
+
+# mutt config
+set beep = no
+#set index_format="%4C %Z %{%b %d} %-15.15L (%4l) %s"
+set index_format="%4C %Z %{%b/%d %a} %-15.15L (%X) %s"
+set include = yes
+set indent_str = "> "
+set header = yes
+set quit = ask-yes
+#set sort = threads                        
+#set sort_aux = date-sent
+set sort = date
+set pager_stop
+set fast_reply = yes
+set resolve = yes
+set wait_key = yes
+set pager_context = 1
+set pager_index_lines = 4
+set status_on_top = no
+set sendmail_wait = 0
+set to_chars = " +TCFL"
+#set mime_forward=yes
+#set mime_forward_rest=yes
+#set content_type = text/html
+set content_type = text/plain
+
+auto_view text/html application/pdf
+
+# color(bright)white black red blue green yellow megenta cyan
+color status magenta default 
+color indicator red default
+color hdrdefault yellow default 
+color attachment cyan default 
+color quoted green default
+color tree cyan default 
+color message default default 
+color signature brightblue default 
+color search brightyellow red
+color normal default default 
+color index brightblue default ~twanglei     #to me
+color index cyan default ~Q     #replied
+color index yellow default ~P   #form me
+color index green default ~U    #unread
+color index green default ~N    #new
+
+ignore *
+unignore From:
+unignore To
+unignore Cc
+unignore Subject
+unignore Date
+
+# User setting
+set use_from = yes
+set from = "Wanglei<wanglei@loongson.cn>"
+set envelope_from = yes
+set signature = "~/mail/signature"
+set sig_on_top = yes
+set askcc = yes
+set realname = "wang lei"
+my_hdr From: Wanglei<wanglei@loongson.cn>
+my_hdr Reply-To: Wanglei<wanglei@loongson.cn>
+
+macro index G "!fetchmail" 
+macro pager G "!fetchmail"

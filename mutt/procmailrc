@@ -1,0 +1,9 @@
+PATH=/bin:/sbin:/usr/bin:/usr/sbin/:/usr/local/bin:/usr/local/sbin
+MAILDIR=$HOME/mail
+VERBOSE=off
+DEFAULT=$MAILDIR/inbox
+LOGFILE=$MAILDIR/log/procmail.log
+
+:0
+* .*
+inbox
