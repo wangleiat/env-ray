@@ -1,5 +1,5 @@
 # Change C-A to C-Z
-escape ^Zz
+#escape ^Zz
 
 # Set encoding
 defutf8 on
