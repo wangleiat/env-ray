@@ -29,6 +29,20 @@ syntax on
 "Sets how many lines of history VIM har to remember
 set history=400
 
+" for tmux
+if exists('$ITERM_PROFILE')
+    if exists('$TMUX') 
+        let &amp;t_SI = "<Esc>[3 q"
+        let &amp;t_EI = "<Esc>[0 q"
+    else
+        let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
+        let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
+    endif
+end
+if exists('$TMUX')
+    set term=screen-256color
+endif
+
 " Chinese
 " multi-encoding setting
 if has("multi_byte")
