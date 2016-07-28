@@ -10,3 +10,5 @@
 #	proxy = https://10.2.5.22:808
 [push]
 	default = simple
+[core]
+	editor = vim
