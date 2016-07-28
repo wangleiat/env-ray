@@ -1,0 +1,12 @@
+[user]
+	name = Ray Wang
+	email = wangray1021@gmail.com
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+#[http]
+#	proxy = http://10.2.5.22:808
+#	SSLVERIFY = false
+#[https]
+#	proxy = https://10.2.5.22:808
+[push]
+	default = simple
