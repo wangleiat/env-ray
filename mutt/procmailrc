@@ -4,6 +4,17 @@ VERBOSE=off
 DEFAULT=$MAILDIR/inbox
 LOGFILE=$MAILDIR/log/procmail.log
 
-:0
+# form user
+:0:
+* ^From: .*user@mail.com.*
+userbox/
+
+# miallist
+:0:
+* ^List-Id:.*lists.*
+lists/
+
+#default
+:0:
 * .*
-inbox
+inbox/
