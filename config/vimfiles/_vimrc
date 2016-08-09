@@ -30,15 +30,6 @@ syntax on
 set history=400
 
 " for tmux
-if exists('$ITERM_PROFILE')
-    if exists('$TMUX') 
-        let &amp;t_SI = "<Esc>[3 q"
-        let &amp;t_EI = "<Esc>[0 q"
-    else
-        let &amp;t_SI = "<Esc>]50;CursorShape=1x7"
-        let &amp;t_EI = "<Esc>]50;CursorShape=0x7"
-    endif
-end
 if exists('$TMUX')
     set term=screen-256color
 endif
@@ -297,21 +288,21 @@ if has("cscope")
     set csverb
 endif
 "symbol
-nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 "define
-nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 "call
-nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
 "called
-nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 "text
-nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
 "egrep
-nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
 "file
-nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-"include file
-nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"include\file
+nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins configuration
