@@ -233,6 +233,7 @@ config_opts['releasever'] = '${RELEASEVER}'
 
 config_opts['plugin_conf']['package_state_enable'] = False
 config_opts['plugin_conf']['root_cache_enable'] = True
+config_opts['plugin_conf']['root_cache_opts']['age_check'] = True
 config_opts['plugin_conf']['root_cache_opts']['max_age_days'] = 15
 config_opts['plugin_conf']['root_cache_opts']['dir'] = '${ROOT_CACHE_DIR}'
 config_opts['plugin_conf']['ccache_enable'] = True
@@ -277,7 +278,7 @@ baseurl=${BASEURL}
 
 [local]
 name=local
-baseurl=file://${PWD}/${RESULT_DIR}/rpms/
+baseurl=file://${RESULT_DIR}/rpms/
 cost=2000
 enabled=0
 """                                                                                                                     
@@ -287,43 +288,47 @@ EOF
 touch ${ROOT_CACHE_DIR}/* > /dev/null 2>&1
 
 # mock build
-mock ${DEBUG} ${OPTIONS} --configdir=${CONFIGDIR} -r ${CONF_NAME} ${SRC_RPM}
-
-RET=$?
-TIME_STR=$(date +"%F %T")
-PKG_NAME=$(basename ${SRC_RPM})
+if [ -z "${OPTIONS}" ] || [[ "${OPTIONS}" =~ "--no-clean" ]]; then
+    mock ${DEBUG} ${OPTIONS} --configdir=${CONFIGDIR} -r ${CONF_NAME} ${SRC_RPM}
+    RET=$?
+    TIME_STR=$(date +"%F %T")
+    PKG_NAME=$(basename ${SRC_RPM})
+else
+    mock ${DEBUG} ${OPTIONS} --configdir=${CONFIGDIR} -r ${CONF_NAME}
+    exit
+fi
 
 # result 
 # ok: move rpms to dist dirs and delete build environment.
 # err: nothing to do.
 if [ ${RET} -eq 0 ] ; then
+    rm -rf ${RESULT_ALL}/${CONF_NAME} 2>/dev/null
+    rm -rf ${RESULT_ERR}/${CONF_NAME} 2>/dev/null
     set -e
     set -x
-    rm -rf ${RESULT_ALL}/${CONF_NAME} 2>dev/null
-    rm -rf ${RESULT_ERR}/${CONF_NAME} 2>dev/null
     /bin/cp -a ${BASE_DIR}/${CONF_NAME}/result ${RESULT_ALL}/${CONF_NAME} 2>/dev/null
     set +x
     set +e
     mock --configdir=${CONFIGDIR} -r ${CONF_NAME} --clean
+    echo "------------------------------------------------------------"
     echo "OK:  ${TIME_STR}: ${PKG_NAME}"
+    echo "TOPDIR=${MOCKDIR}"
+    echo "BUILD_ROOT=${BASE_DIR}"
+    echo "CACHE_DIR=${CACHE_DIR}"
+    echo "CONFIG_DIR=${CONFIGDIR}"
+    echo "RESULT_LOG_DIR=${RESULT_DIR}"
+    echo ""
+    echo "for use new package build:"
+    echo "   # cd ${RESULT_DIR}"
+    echo "   # ./link.sh"
+    echo "   # createrepo/createrepo_c rpms"
+    echo "------------------------------------------------------------"
 else
-    rm -rf ${RESULT_ERR}/${CONF_NAME} 2>dev/null
+    rm -rf ${RESULT_ERR}/${CONF_NAME} 2>/dev/null
     /bin/cp -a ${BASE_DIR}/${CONF_NAME}/result ${RESULT_ERR}/${CONF_NAME} 2>/dev/null
     #mock --configdir=${CONFIGDIR} -r ${CONF_NAME} --clean
+    echo "------------------------------------------------------------"
     echo "ERROR:  ${TIME_STR}: ${PKG_NAME}"
-    echo "You may chroot and fix:"
-    echo "    #mock --no-clean --configdir=${CONFIGDIR} -r ${CONF_NAME} --shell"
+    echo "------------------------------------------------------------"
 fi
 
-echo "------------------------------------------------------------"
-echo " TOPDIR=${MOCKDIR}"
-echo " BUILD_ROOT=${BASE_DIR}"
-echo " CACHE_DIR=${CACHE_DIR}"
-echo " CONFIG_DIR=${CONFIGDIR}"
-echo " RESULT_LOG_DIR=${RESULT_DIR}"
-echo ""
-echo " for use new package build:"
-echo "    # cd ${RESULT_DIR}"
-echo "    # ./link.sh"
-echo "    # createrepo/createrepo_c rpms"
-echo "------------------------------------------------------------"
