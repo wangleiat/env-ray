@@ -195,6 +195,7 @@ do
     esac
   done
 done
+createrepo rpms
 EOF
     chmod +x ${RESULT_DIR}/link.sh
 fi
@@ -281,6 +282,7 @@ name=local
 baseurl=file://${RESULT_DIR}/rpms/
 cost=2000
 enabled=0
+skip_if_unavailable=True
 """                                                                                                                     
 EOF
 
