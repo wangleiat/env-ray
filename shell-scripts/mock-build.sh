@@ -290,7 +290,7 @@ EOF
 touch ${ROOT_CACHE_DIR}/* > /dev/null 2>&1
 
 # mock build
-if [ -z ${OPTIONS} ] || [[ "${OPTIONS}" =~ "--no-clean" ]]; then
+if [[ -z ${OPTIONS} ]] || [[ "${OPTIONS}" =~ "--no-clean" ]]; then
     mock ${DEBUG} ${OPTIONS} --configdir=${CONFIGDIR} -r ${CONF_NAME} ${SRC_RPM}
     RET=$?
     TIME_STR=$(date +"%F %T")
