@@ -198,6 +198,9 @@ done
 createrepo rpms
 EOF
     chmod +x ${RESULT_DIR}/link.sh
+    pushd ${RESULT_DIR}
+        ./link.sh
+    popd
 fi
 
 OPTIONS=""
@@ -256,6 +259,7 @@ config_opts['macros']['%__isa_name'] = '${ISA_NAME}'
 config_opts['macros']['%__isa_bits'] = '${ISA_BITS}'
 config_opts['macros']['%__perl'] = '/usr/bin/perl'
 config_opts['macros']['%__python'] = '/usr/bin/python'
+config_opts['macros']['%__gzip'] = '/usr/bin/gzip -n'
 
 config_opts['yum.conf'] = """
 [main]
