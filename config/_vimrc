@@ -218,7 +218,9 @@ set backspace=eol,start,indent
 set whichwrap+=<,>
 
 "Show line number
-"set nu
+set nu
+"Show cursorline
+set cursorline
 
 "Turn on Wild menu
 set wildmenu
@@ -498,6 +500,7 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
+" disable display blank num
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
 
