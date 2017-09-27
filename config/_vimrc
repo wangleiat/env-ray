@@ -38,6 +38,7 @@ Plugin 'sessionman.vim'
 Plugin 'bufexplorer.zip'
 Plugin 'taglist.vim'
 Plugin 'winmanager'
+Plugin 'molokai'
 " Git plugin not hosted on GitHub
 "Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
