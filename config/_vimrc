@@ -241,6 +241,9 @@ set incsearch
 "Highlight search
 set hlsearch
 
+"Highlight match group
+highlight ray ctermbg=green guibg=green
+
 "Show matching bracets {  }
 set showmatch
 
