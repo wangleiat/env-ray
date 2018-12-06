@@ -44,7 +44,7 @@ bindsym $mod+Print exec scrot
 bindsym $mod+e exec --no-startup-id caja
 
 # app finder
-bindsym Mod1+F2 exec --no-startup-id xfce4-appfinder 
+bindsym Mod1+F2 exec --no-startup-id rofi -show run
 
 # bar toggle, hide or show 
 bindsym $mod+m bar mode toggle
@@ -94,7 +94,7 @@ bar {
 exec --no-startup-id xrandr --output eDP --primary
 
 # external display device(use the command "xrandr" to see the display device name)
-#exec --no-startup-id xrandr --output HDMI1 1920*1080 --right-of eDP
+#exec --no-startup-id xrandr --output HDMI1-0 1024*768 --right-of eDP
 
 #===workspace control===
 
@@ -149,7 +149,7 @@ exec_always --no-startup-id mate-terminal
 exec_always --no-startup-id chromium-browser
 exec_always --no-startup-id caja
 
-#workspace 10 output eDP
+#workspace 10 output HDMI-0
 
 #===window control===
 
