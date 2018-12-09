@@ -148,7 +148,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 exec_always --no-startup-id mate-terminal
 exec_always --no-startup-id chromium-browser
-exec_always --no-startup-id caja
+#exec_always --no-startup-id caja
 
 #workspace 10 output HDMI-0
 
