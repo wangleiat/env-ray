@@ -294,7 +294,7 @@ bindsym Ctrl+Mod1+l mode "i3lock: Return to lock/Escape to Cancel"
 
 # exit i3
 mode "i3: Return to exit/Escape to Cancel" {
-            bindsym Return mode "default" exec i3-msg exit
+            bindsym Return exec i3-msg exit, mode "default"
             bindsym Escape mode "default"
 }
 bindsym $mod+Shift+e mode "i3: Return to exit/Escape to Cancel"
