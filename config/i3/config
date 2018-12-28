@@ -222,10 +222,10 @@ bindsym $mod+Shift+Right move right
 #---split window---
 
 # horizontal orientation
-bindsym Mod1+h split h
+bindsym Ctrl+Shift+h split h
 
 # vertical orientation
-bindsym Mod1+v split v
+bindsym Ctrl+Shift+v split v
 
 
 #---resize window---
