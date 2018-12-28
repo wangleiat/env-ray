@@ -15,7 +15,8 @@ exec --no-startup-id nm-applet &
 #===programs shortcuts===
 
 # dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id rofi -show drun
 
 # terminal
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
@@ -46,6 +47,8 @@ bindsym $mod+e exec --no-startup-id caja
 
 # app finder
 bindsym Mod1+F2 exec --no-startup-id rofi -show run
+# window switch
+bindsym $mod+w exec --no-startup-id rofi -show window
 
 # bar toggle, hide or show 
 bindsym $mod+m bar mode toggle
