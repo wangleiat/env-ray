@@ -156,6 +156,15 @@ exec_always --no-startup-id mate-terminal
 exec_always --no-startup-id chromium-browser
 #exec_always --no-startup-id caja
 
+workspace 1 output $primary
+workspace 2 output $primary
+workspace 3 output $primary
+workspace 4 output $primary
+workspace 5 output $primary
+workspace 6 output $primary
+workspace 7 output $primary
+workspace 8 output $primary
+workspace 9 output $primary
 workspace 10 output $slave
 
 #===window control===
