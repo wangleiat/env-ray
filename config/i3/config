@@ -4,6 +4,9 @@
 # Super key(mod4 =windows logo key/Command key)
 set $mod Mod4
 
+# set output(eDP is the display device's name,use the command "xrandr" to see.)
+set $primary eDP
+set $slave HDMI-0
 
 #===autostart parograms===
 #exec --no-startup-id xcompmgr -FCf -nc -t -5 &
@@ -76,7 +79,7 @@ bar {
     position top
     mode hide
     workspace_buttons yes
-    output eDP
+    output $primary
     tray_output primary
     tray_padding 0
     separator_symbol "|"
@@ -94,11 +97,11 @@ bar {
 #height 30
 }
 
-# tray icons(eDP is the display device's name,use the command "xrandr" to see.)
-exec --no-startup-id xrandr --output eDP --primary
+# tray icons
+exec --no-startup-id xrandr --output $primary --primary
 
 # external display device(use the command "xrandr" to see the display device name)
-#exec --no-startup-id xrandr --output HDMI1-0 1024*768 --right-of eDP
+bindsym $mod+F7 exec --no-startup-id xrandr --output $slave --auto --right-of $primary
 
 #===workspace control===
 
@@ -153,7 +156,7 @@ exec_always --no-startup-id mate-terminal
 exec_always --no-startup-id chromium-browser
 #exec_always --no-startup-id caja
 
-#workspace 10 output HDMI-0
+workspace 10 output $slave
 
 #===window control===
 
