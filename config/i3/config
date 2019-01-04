@@ -77,11 +77,14 @@ bar {
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
 
     position bottom
-    mode hide
+    mode dock
+    #mode hide
+    #height 40
     workspace_buttons yes
     output $primary
+    output $slave
     tray_output primary
-    tray_padding 0
+    tray_padding 3
     separator_symbol "|"
 
     colors {
@@ -93,8 +96,6 @@ bar {
     inactive_workspace #636d72 #2d2d2d #dedede
     urgent_workspace #ffffff #900000 #d23d32
     }
-    
-#height 30
 }
 
 # tray icons
