@@ -26,7 +26,7 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # Press $mod+o followed by either f, t, Escape or Return to launch firefox,
 # thunderbird or return to the default mode, respectively.
-set $mode_launcher Launch: [f]irefox [c]chromium [t]hunderbird
+set $mode_launcher Launch: [3]60-browser [f]irefox [c]chromium [t]hunderbird
 bindsym $mod+o mode "$mode_launcher"
 
 mode "$mode_launcher" {
@@ -34,8 +34,8 @@ mode "$mode_launcher" {
     bindsym t exec thunderbird;mode "default"
     bindsym a exec atril;mode "default"
     bindsym c exec chromium-browser;mode "default"
+    bindsym 3 exec browser360-cn-stable;mode "default"
     bindsym n exec "nautilus --no-desktop";mode "default"
-    bindsym o exec "pcmanfm --no-desktop";mode "default"
     bindsym l exec "mate-screensaver-command --lock";mode "default"
 
     bindsym Escape mode "default"
@@ -46,7 +46,7 @@ mode "$mode_launcher" {
 bindsym $mod+Print exec scrot
 
 # GUI file manager
-bindsym $mod+e exec --no-startup-id caja
+bindsym $mod+e exec --no-startup-id 4Pane
 
 # app finder
 bindsym Mod1+F2 exec --no-startup-id rofi -show run
@@ -118,10 +118,12 @@ set $ws8 8
 set $ws9 9
 set $ws10 10
 
-# putting clients on specific workspaces
+# putting clients on specific workspaces <class: xprop |grep WM_CLASS>
 #assign [class="Mate-terminal"] $ws1
-assign [class="Chromium-browser"] $ws2
-assign [class="Caja"] $ws3
+#assign [class="Chromium-browser"] $ws2
+#assign [class="Firefox-esr"] $ws2
+assign [class="Browser360-cn"] $ws2
+assign [class="4Pane"] $ws3
 
 #---switch workspace---
 
@@ -154,8 +156,10 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 exec_always --no-startup-id mate-terminal
-exec_always --no-startup-id chromium-browser
-#exec_always --no-startup-id caja
+#exec_always --no-startup-id chromium-browser
+#exec_always --no-startup-id firefox-esr
+exec_always --no-startup-id browser360-cn-stable
+#exec_always --no-startup-id 4Pane
 
 workspace $ws1 output $primary
 workspace $ws2 output $primary
@@ -165,7 +169,7 @@ workspace $ws5 output $primary
 workspace $ws6 output $primary
 workspace $ws7 output $primary
 workspace $ws8 output $primary
-workspace $ws9 output $primary
+workspace $ws9 output $slave
 workspace $ws10 output $slave
 
 #===window control===
