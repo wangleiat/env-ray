@@ -8,6 +8,19 @@ set $mod Mod4
 set $primary eDP
 set $slave HDMI-0
 
+#===default setup===
+# orientation: auto, vertical, horizontal
+default_orientation horizontal
+# workspace layout: default, stacking, tabbed
+workspace_layout default
+# new window border: normal, none, pixel <px>
+#new_window pixel 1
+new_window normal
+new_float pixel
+# for window command
+#for_window [class="Mate-terminal"] floating enable
+for_window [class="Mate-terminal"] border pixel 1
+
 #===autostart parograms===
 #exec --no-startup-id xcompmgr -FCf -nc -t -5 &
 exec --no-startup-id guake &
