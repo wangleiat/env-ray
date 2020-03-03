@@ -30,8 +30,11 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'fatih/vim-go'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
+Plugin 'asciidoc.vim'
 Plugin 'The-NERD-tree'
 Plugin 'ctrlp.vim'
 Plugin 'sessionman.vim'
@@ -509,6 +512,11 @@ endif
 " disable display blank num
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" markdown 
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vim_markdown_toc_autofit = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " sessionman setting
