@@ -1,0 +1,21 @@
+#!/bin/sh
+
+ROOTFS_DIR=/home/ray/workspace/cross-build/rootfs/mips64el-rootfs
+
+BIN="$(basename $0)"
+RUN_FILE="$(mktemp -p ${ROOTFS_DIR}/tmp)"
+CMD="/tmp/$(basename ${RUN_FILE})"
+
+trap cleanup TERM EXIT
+cleanup()
+{
+	rm -f ${RUN_FILE}
+}
+
+echo "#!/bin/bash" > ${RUN_FILE}
+echo "cd ${PWD} 2> /dev/null" >> ${RUN_FILE}
+echo "${BIN} ${@}" | sed -e 's@\"@\\\"@g' -e 's@\$@\\\$@g' >> ${RUN_FILE}
+
+chmod +x ${RUN_FILE}
+
+sudo chroot --userspec=${UID}:${GID} ${ROOTFS_DIR} ${CMD}
