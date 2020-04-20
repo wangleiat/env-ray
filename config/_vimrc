@@ -245,16 +245,19 @@ set incsearch
 "Highlight search
 set hlsearch
 
-"Highlight match group
-highlight ray ctermbg=green guibg=green
-"hi Normal ctermfg=252 ctermbg=none
-
+"Highlight match group: match color /text/
 "Show matching bracets {  }
 set showmatch
 
 "No sound on errors.
 set noerrorbells
 set novb t_vb=
+
+" Highlight set
+highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight Visual ctermfg=232 ctermbg=118 guifg=#080808 guibg=#a6e22e
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving around windows and tabs
