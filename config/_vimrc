@@ -387,9 +387,7 @@ let g:LookupFile_smartcase = 1
 if filereadable("./filenametags")
     let g:LookupFile_TagExpr = '"./filenametags"'
 endif
-nmap <silent> <leader>lk :LUTags<cr>
-nmap <silent> <leader>ll :LUBufs<cr>
-nmap <silent> <leader>lw :LUWalk<cr>
+nmap <silent> <leader>ll :LUTags<cr>
 
 " lookup file with ignore case
 function! LookupFile_IgnoreCaseFunc(pattern)
@@ -436,6 +434,10 @@ nmap <leader>cp :cp<cr>
 nmap <leader>cc :ccl<cr>
 "window
 nmap <leader>cw :cw 20<cr>
+"lwindow
+nmap <leader>lw :lw 20<cr>
+"lclose
+nmap <leader>lc :lcl<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " netrw setting : file explore
