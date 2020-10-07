@@ -1,0 +1,6 @@
+#!/bin/bash
+
+VPATH=/home/
+IMG=llvm-build
+
+docker run --rm --name llvm --cap-add=ALL -it -v ${VPATH}:${VPATH}:z -w ${VPATH} ${IMG} ./build.sh "$@"
