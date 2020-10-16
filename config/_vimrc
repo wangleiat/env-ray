@@ -28,7 +28,6 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 "Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'fatih/vim-go'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'godlygeek/tabular'
@@ -91,7 +90,6 @@ endfunction
 "Syntax highlighting enables
 syntax enable
 syntax on
-colorscheme molokai
 
 "Sets how many lines of history VIM har to remember
 set history=400
@@ -257,12 +255,6 @@ set showmatch
 set noerrorbells
 set novb t_vb=
 
-" Highlight set
-highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
-highlight Visual ctermfg=232 ctermbg=118 guifg=#080808 guibg=#a6e22e
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving around windows and tabs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -271,6 +263,8 @@ nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
 nmap <C-h> <C-W>h
 nmap <C-l> <C-W>l
+nmap <C-_> <C-W>_
+nmap <C-=> <C-W>=
 
 "Tab configuration
 map <leader>tt :tabnew<cr>
@@ -519,11 +513,14 @@ nmap <silent> <leader>wm :WMToggle<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline setting
 """"""""""""""""""""""""""""""""""""""""""""""""""
+let g:molokai_original = 1
+colorscheme molokai
+let g:airline_theme='molokai'
 "airline
 let g:airline_powerline_fonts = 1
 "tabline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bp<cr>
 if !exists('g:airline_symbols')
