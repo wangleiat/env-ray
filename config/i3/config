@@ -19,13 +19,14 @@ new_window normal
 new_float pixel
 # for window command
 #for_window [class="Mate-terminal"] floating enable
-for_window [class="Mate-terminal"] border pixel 1
+for_window [class="Gnome-terminal"] border pixel 1
 
 #===autostart parograms===
 #exec --no-startup-id xcompmgr -FCf -nc -t -5 &
 exec --no-startup-id guake &
 #exec --no-startup-id mate-power-manager &
 exec --no-startup-id nm-applet &
+exec --no-startup-id xscreensaver &
 #exec --no-startup-id ibus &
 
 #===programs shortcuts===
@@ -39,17 +40,15 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # Press $mod+o followed by either f, t, Escape or Return to launch firefox,
 # thunderbird or return to the default mode, respectively.
-set $mode_launcher Launch: [3]60-browser [f]irefox [c]chromium [t]hunderbird
+set $mode_launcher Launch: [f]irefox [c]chromium [t]hunderbird [n]autilus
 bindsym $mod+o mode "$mode_launcher"
 
 mode "$mode_launcher" {
     bindsym f exec firefox-esr;mode "default"
     bindsym t exec thunderbird;mode "default"
-    bindsym a exec atril;mode "default"
-    bindsym c exec chromium-browser;mode "default"
-    bindsym 3 exec browser360-cn-stable;mode "default"
+    bindsym a exec evince;mode "default"
+    bindsym c exec chromium;mode "default"
     bindsym n exec "nautilus --no-desktop";mode "default"
-    bindsym l exec "mate-screensaver-command --lock";mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -59,7 +58,7 @@ mode "$mode_launcher" {
 bindsym $mod+Print exec scrot
 
 # GUI file manager
-bindsym $mod+e exec --no-startup-id 4Pane
+bindsym $mod+e exec --no-startup-id nautilus --no-desktop
 
 # app finder
 bindsym Mod1+F2 exec --no-startup-id rofi -show run
@@ -72,7 +71,7 @@ bindsym $mod+m bar mode toggle
 #---wallpaper---
 
 # static mode
-exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper.jpg &
+exec --no-startup-id feh --bg-fill /usr/share/backgrounds/gnome &
 
 # font
 font pango:monospace 14
@@ -121,8 +120,8 @@ bindsym $mod+F7 exec --no-startup-id xrandr --output $slave --auto --right-of $p
 
 # Workspace names
 set $ws1 "1:Work"
-set $ws2 "2:Web"
-set $ws3 "3:Explore"
+set $ws2 2
+set $ws3 3
 set $ws4 4
 set $ws5 5
 set $ws6 6
@@ -135,8 +134,7 @@ set $ws10 10
 #assign [class="Mate-terminal"] $ws1
 #assign [class="Chromium-browser"] $ws2
 #assign [class="Firefox-esr"] $ws2
-assign [class="Browser360-cn"] $ws2
-assign [class="4Pane"] $ws3
+#assign [class="Nautilus"] $ws3
 
 #---switch workspace---
 
@@ -145,16 +143,16 @@ bindsym $mod+Tab workspace next
 bindsym Mod1+Tab workspace prev
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -168,11 +166,10 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-exec_always --no-startup-id mate-terminal
-#exec_always --no-startup-id chromium-browser
+exec_always --no-startup-id gnome-terminal
+#exec_always --no-startup-id chromium
 #exec_always --no-startup-id firefox-esr
-exec_always --no-startup-id browser360-cn-stable
-#exec_always --no-startup-id 4Pane
+#exec_always --no-startup-id autilus --no-desktop
 
 workspace $ws1 output $primary
 workspace $ws2 output $primary
@@ -296,7 +293,7 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 set $mode_system select: lock(L) exit(E) reboot(R) poweroff(O) cancel(Esc)
 bindsym $mod+Shift+q mode "$mode_system"
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock -i ~/.config/i3/lock.png, mode "default"
+    bindsym l exec --no-startup-id i3lock -c 000000, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym o exec --no-startup-id systemctl poweroff, mode "default"
@@ -307,8 +304,9 @@ mode "$mode_system" {
 #exec --no-startup-id xset dpms 300 1357 6789
 exec --no-startup-id xset dpms 365 1357
 
-
 #===manage i3===
+# rename workspace
+bindsym $mod+Shift+u exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace:'
 
 # reload the configuration file
 bindsym $mod+Shift+r reload
@@ -318,7 +316,7 @@ bindsym $mod+Shift+s restart
 
 # i3lock
 mode "i3lock: Return to lock/Escape to Cancel" {
-            bindsym Return mode "default" exec i3lock -i ~/.config/i3/lock.png
+            bindsym Return mode "default" exec xscreensaver-command -l
             bindsym Escape mode "default"
 }
 
