@@ -2,27 +2,29 @@
 #-------------
 # ctags file
 #-------------
-
-#ctags for c,c++
+# for c,c++
 ctags --extra=+q --fields=+Saim --c++-kinds=+lpx --c-kinds=+lpx -R .
 
-#ctags for java
+# for java
 #ctags --java-kinds=+l -R .
 
-#nomal
+# normal
 #ctags -R .
 
 #-------------
 # cscope file
 #-------------
+# for kernel source
+#cscope -Rkbq
 
-#cscope -Rkbq for kernel source
+# normal
 cscope -Rbq
 
 #-------------
 # lookup tags file
 # generate tag file for vim lookupfile plugin
 #-------------
-
 echo -e '!_TAG_FILE_SORTED\t2\t/2=foldcase/'> filenametags
-find . -not -regex '.*\.\(png\|gif\)' ! \( -path "*.svn*" -o -path "*.git*" \) -type f -printf "%f\t%p\t1\n" | sort -f>> filenametags
+find . -not -regex '.*\.\(png\|gif\)' \
+  ! \( -path "*.svn*" -o -path "*.git*" -o -path "*.clangd*" \) \
+  -type f -printf "%f\t%p\t1\n" | sort -f>> filenametags
