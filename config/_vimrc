@@ -404,8 +404,8 @@ let g:LookupFile_smartcase = 1
 if filereadable("./filenametags")
     let g:LookupFile_TagExpr = '"./filenametags"'
 endif
-nmap <silent> <leader>ll :LUTags<cr>
-nmap <silent> <leader>lw :LUWalk<cr>
+nmap <silent> <leader>lt :LUTags<cr>
+nmap <silent> <leader>lf :LUWalk<cr>
 
 " lookup file with ignore case
 function! LookupFile_IgnoreCaseFunc(pattern)
