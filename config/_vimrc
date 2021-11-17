@@ -26,7 +26,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-"Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
@@ -35,7 +35,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'vim-scripts/genutils'
 Plugin 'vim-scripts/lookupfile'
-Plugin 'tpope/vim-fugitive'
+Plugin 'preservim/tagbar'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
 Plugin 'asciidoc.vim'
@@ -405,6 +405,7 @@ if filereadable("./filenametags")
     let g:LookupFile_TagExpr = '"./filenametags"'
 endif
 nmap <silent> <leader>ll :LUTags<cr>
+nmap <silent> <leader>lw :LUWalk<cr>
 
 " lookup file with ignore case
 function! LookupFile_IgnoreCaseFunc(pattern)
@@ -439,6 +440,11 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_Use_Right_Window = 0
 let Tlist_WinWidth = 25
 nmap <silent> <leader>tl :Tlist<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" TagBar setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <leader>tb :TagbarToggle<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix setting
