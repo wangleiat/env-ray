@@ -1,14 +1,27 @@
 [user]
 	name = Ray Wang
 	email = wangray1021@gmail.com
+
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+
 #[http]
 #	proxy = http://10.2.5.22:808
 #	SSLVERIFY = false
 #[https]
 #	proxy = https://10.2.5.22:808
+
 [push]
 	default = simple
+
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore
+
+[oh-my-zsh]
+	hide-status = 1
+	hide-dirty = 1

@@ -1,0 +1,5 @@
+compile_commands.json
+.clangd
+td.tags
+tmp.td
+filenametags
