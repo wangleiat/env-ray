@@ -2,4 +2,7 @@ compile_commands.json
 .clangd
 td.tags
 tmp.td
+tags
 filenametags
+cscope.in.out
+cscope.po.out
