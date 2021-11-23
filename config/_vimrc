@@ -406,6 +406,7 @@ if filereadable("./filenametags")
 endif
 nmap <silent> <leader>lt :LUTags<cr>
 nmap <silent> <leader>lf :LUWalk<cr>
+nmap <silent> <leader>lb :LUBufs<cr>
 
 " lookup file with ignore case
 function! LookupFile_IgnoreCaseFunc(pattern)
@@ -522,6 +523,7 @@ nmap <silent> <leader>wm :WMToggle<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let g:molokai_original = 1
 colorscheme molokai
+hi Comment ctermfg=2
 let g:airline_theme='molokai'
 "airline
 let g:airline_powerline_fonts = 1
