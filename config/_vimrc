@@ -524,6 +524,7 @@ nmap <silent> <leader>wm :WMToggle<cr>
 let g:molokai_original = 1
 colorscheme molokai
 hi Comment ctermfg=2
+hi Visual ctermfg=black ctermbg=darkCyan
 let g:airline_theme='molokai'
 "airline
 let g:airline_powerline_fonts = 1
