@@ -71,7 +71,8 @@ bindsym $mod+m bar mode toggle
 #---wallpaper---
 
 # static mode
-exec --no-startup-id feh --bg-fill /usr/share/backgrounds/gnome &
+exec --no-startup-id feh -z --bg-fill /usr/share/backgrounds/gnome &
+bindsym $mod+Shift+b exec --no-startup-id feh -z --bg-fill /usr/share/backgrounds/gnome
 
 # font
 font pango:monospace 14
@@ -166,7 +167,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-exec_always --no-startup-id gnome-terminal
+exec_always --no-startup-id i3-sensible-terminal
 #exec_always --no-startup-id chromium
 #exec_always --no-startup-id firefox-esr
 #exec_always --no-startup-id autilus --no-desktop
