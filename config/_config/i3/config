@@ -86,8 +86,8 @@ client.urgent #FF0000 #FF0000 #FF0000
 #---bar---
 
 bar {
-#    status_command i3status -c ~/.config/i3/i3status.conf
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    status_command i3status -c ~/.config/i3/i3status.conf
+#    status_command i3blocks -c ~/.config/i3/i3blocks.conf
 
     position bottom
     mode dock
